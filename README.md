@@ -8,6 +8,6 @@ Assistant for certain CEA tasks.
 ## Install Instructions
 1. Clone the repo.
 2. Enable Chrome developer tools.
-3. Navigate to <chrome://extensions/>.
+3. Navigate to chrome://extensions/.
 4. Select Load unpacked > Select the cloned folder.
 5. Extension visible in the toolbar.
