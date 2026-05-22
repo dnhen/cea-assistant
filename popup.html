@@ -22,7 +22,14 @@
           <p>MODULE</p>
           <p class="title">ROLL_MARKER</p>
         </div>
-        <div class="activeIndicator"></div>
+        <div class="activeIndicator green"></div>
+      </div>
+      <div class="dropdownContainer">
+        <p>KEY</p>
+        <select name="key" id="rollKeySelector">
+          <option value="id">CEA ID</option>
+          <option value="name">Name</option>
+        </select>
       </div>
       <div class="fileInputZone">
         <input type="file" accept=".csv" id="fileUpload" class="hidden" />
@@ -36,6 +43,14 @@
       <div class="tabBodyHeader">
         <p>MODULE</p>
         <p class="title">RAMP_COPY</p>
+      </div>
+    </div>
+
+    <div class="container notification hidden">
+      <div class="notificationScanLine"></div>
+      <div class="notificationContainer">
+        <div class="activeIndicator"></div>
+        <p>Notification text is here</p>
       </div>
     </div>
 
