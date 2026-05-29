@@ -12,11 +12,11 @@
     <div class="line"></div>
 
     <div class="container tabButtonContainer">
-      <div class="tabButton active" id="rollTabButton">Roll</div>
-      <div class="tabButton disabled" id="rampTabButton">RAMP</div>
+      <div class="tabButton" id="rollTabButton">Roll</div>
+      <div class="tabButton active" id="rampTabButton">RAMP</div>
     </div>
 
-    <div class="container tabBodyContainer" id="rollTabBody">
+    <div class="container tabBodyContainer hidden" id="rollTabBody">
       <div class="tabBodyHeader">
         <div class="textContainer">
           <p>MODULE</p>
@@ -39,11 +39,20 @@
       <div class="actionButton" id="markRollActionButton">Mark Roll</div>
     </div>
 
-    <div class="container hidden" id="rampTabBody">
+    <div class="container tabBodyContainer" id="rampTabBody">
       <div class="tabBodyHeader">
-        <p>MODULE</p>
-        <p class="title">RAMP_COPY</p>
+        <div class="textContainer">
+          <p>MODULE</p>
+          <p class="title">RAMP_COPY</p>
+        </div>
+        <div class="activeIndicator green"></div>
       </div>
+      <div class="subContainer">
+        <p>ACTIVITY ID</p>
+        <p class="title" id="activityIdDisplay">12345</p>
+      </div>
+      <div class="actionButton" id="copyRampActionButton">Copy Ramp</div>
+      <div class="actionButton" id="pasteRampActionButton">Paste Ramp</div>
     </div>
 
     <div class="container notification hidden">
@@ -59,6 +68,3 @@
     <script src="ramp.js"></script>
   </body>
 </html>
-
-<!-- <input type="file" id="csvFileInput" accept=".csv" />
-<button id="actionBtn">Mark Roll</button> -->
