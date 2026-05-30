@@ -36,7 +36,7 @@ const hideNotification = () => {
 };
 
 // Tab Management
-let activeTab = 'ramp';
+let activeTab = 'roll';
 
 const allTabs = ['roll', 'ramp'];
 
