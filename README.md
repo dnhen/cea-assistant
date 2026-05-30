@@ -9,5 +9,5 @@ Assistant for certain CEA tasks.
 1. Clone the repo.
 2. Enable Chrome developer tools.
 3. Navigate to chrome://extensions/.
-4. Select Load unpacked > Select the cloned folder.
+4. Select Load unpacked > Select the folder named 'addon'.
 5. Extension visible in the toolbar.
