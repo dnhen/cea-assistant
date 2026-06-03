@@ -31,16 +31,21 @@ document.getElementById('markRollActionButton').addEventListener('click', async 
 
   // This fires once the file is fully read in the popup context
   reader.onload = async (e) => {
+    // Get the key to compare against (ID, name, etc)
+    const keyValue = document.querySelector('#rollKeySelector').value;
+
     // Text is the plain CSV string
     const text = e.target.result;
+    const textSplitString = keyValue === 'name_lastfirst' ? /\r?\n/ : /[\n,\r]+/;
 
     // Convert CSV text into a clean array of string IDs
     // This splits by commas, newlines, or carriage returns and filters out empty values
     // This also makes all strings lower case
-    const targetValues = text
-      .split(/[\n,\r]+/)
+    let targetValues = text
+      .split(textSplitString)
       .map((target) => target.trim())
       .map((target) => target.toLowerCase())
+      .map((target) => target.replace(/"/g, '')) // Remove quotation marks if present
       .filter((target) => target.length > 0);
 
     if (targetValues.length === 0) {
@@ -48,11 +53,20 @@ document.getElementById('markRollActionButton').addEventListener('click', async 
       return;
     }
 
+    // If the CSV is ordered <last>, <first> we need to reconstruct entries
+    if (keyValue === 'name_lastfirst') {
+      targetValues = targetValues.flatMap((target) => {
+        const parts = target.split(',').map((part) => part.trim());
+        if (parts.length === 2) {
+          return `${parts[1]} ${parts[0]}`;
+        }
+
+        return target; // If the format is unexpected, return the original string for better error handling later
+      });
+    }
+
     // Get the current active tab
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-
-    // Get the key to compare against (ID, name, etc)
-    const keyValue = document.querySelector('#rollKeySelector').value;
 
     // Execute the script on the page, passing targetValues via the 'args' array
     chrome.scripting.executeScript({
@@ -83,6 +97,7 @@ function checkAttendance(targetValues, keyValue) {
 
     // Set the specific cell to use as the comparator
     switch (keyValue) {
+      case 'name_lastfirst':
       case 'name':
         masterKeyCell = row.querySelectorAll('td.all')[1];
         break;
