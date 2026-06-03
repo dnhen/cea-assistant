@@ -87,6 +87,7 @@ document.getElementById('markRollActionButton').addEventListener('click', async 
  * @param {string} keyValue the key we use to compare the targets against (ID, name, etc)
  */
 function checkAttendance(targetValues, keyValue) {
+  const dynamicTargetValues = targetValues;
   // Find all rows in the roll
   const rows = document.querySelectorAll('tr[ng-repeat*="item.Entries"]');
 
@@ -108,24 +109,41 @@ function checkAttendance(targetValues, keyValue) {
     }
 
     if (masterKeyCell) {
+      // Get the value of the cell in the row, trim whitespace, lowercase it
       const rowValue = masterKeyCell.textContent.trim().toLowerCase();
 
-      // Check if the current row's ID exists in the target array
-      if (
-        targetValues.some((targetValue) => {
-          return rowValue.includes(targetValue.toLowerCase());
-        })
-      ) {
-        // Find the button inside the 'td.all' cell of this exact row
-        const button = row.querySelector('td.all button');
+      // Find the button inside the 'td.all' cell of this exact row
+      const button = row.querySelector('td.all button');
 
-        if (button) {
-          button.click();
-          console.log(`Successfully clicked button for key: ${rowValue}`);
-        } else {
-          console.log(`Found matching key ${rowValue}, but couldn't find the button in td.all`);
-        }
+      if (!button) {
+        console.info(
+          `// CEA ASSIST: Could not find button for row with value ${rowValue}. Skipping attendance marking for this row.`
+        );
       }
+
+      const rowInCSVIndex = dynamicTargetValues.findIndex((targetValue) => {
+        return rowValue.includes(targetValue.toLowerCase());
+      });
+      const rowInCSV = rowInCSVIndex !== -1;
+
+      //dynamicTargetValues.splice(rowInCSVIndex, 1);
+
+      if (!rowInCSV) {
+        // Entry not in the CSV, therefore mark as absent (double click);
+        button.click();
+        button.click();
+        return;
+      }
+
+      // Remove from the CSV entries array to track which entries we have found in the roll
+      dynamicTargetValues.splice(rowInCSVIndex, 1);
+
+      // Mark attended
+      button.click();
+      return;
     }
   });
+
+  dynamicTargetValues.length > 0 &&
+    console.error('// CEA ASSIST: Remaining values NOT MARKED/MATCHED:', dynamicTargetValues);
 }
