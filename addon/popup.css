@@ -175,15 +175,19 @@ body {
 }
 
 .tabBodyContainer > .subContainer {
-  background-color: #1a1c1c;
-  border: 1px solid #1e2634;
-  border-radius: 6px;
+  background-color: #05080f;
+  border: 1px solid #414753;
   padding: 10px;
 }
 
 .tabBodyContainer > .subContainer > .title {
   font-size: 1.4rem;
   font-weight: 800;
+}
+
+.tabBodyContainer > .subContainer > .subtitle {
+  color: #757a86;
+  font-size: 1rem;
 }
 
 /* ------------ */

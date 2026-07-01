@@ -117,7 +117,7 @@ function checkAttendance(targetValues, keyValue) {
 
       if (!button) {
         console.info(
-          `// CEA ASSIST: Could not find button for row with value ${rowValue}. Skipping attendance marking for this row.`
+          `// CEA ASSIST: Could not find button for row with value ${rowValue}. Skipping attendance marking for this row.`,
         );
       }
 
