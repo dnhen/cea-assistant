@@ -3,7 +3,7 @@ Assistant for certain CEA tasks.
 
 ## Current Functionality
 - Roll marker
-- RAMP cloner (WIP)
+- RAMP cloner
 
 ## Install Instructions
 1. Clone the repo.
